@@ -27,7 +27,6 @@ const displayPhones = (phones, dataLimit) => {
     }
     //display all phones
     phones.forEach(phone => {
-        console.log(phone)
         const phoneDiv = document.createElement('div')
         phoneDiv.classList.add('col')
         phoneDiv.innerHTML = `
@@ -37,6 +36,7 @@ const displayPhones = (phones, dataLimit) => {
             <h5 class="card-title">${phone.phone_name}</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit longer.</p>
+                <button href="#" class="btn btn-primary" onclick="loadDetails('${phone.slug}')">Show Details</button>
         </div>
     </div>
         `
@@ -49,6 +49,14 @@ const displayPhones = (phones, dataLimit) => {
 const searchPhone = () => {
     processSearch(10)
 }
+
+//search input field  enter key handler
+
+document.getElementById('search-field').addEventListener('keypress', function (e) {
+    if (e.key === "Enter") {
+        processSearch(10)
+    }
+})
 
 
 const toggleSpinner = isLoading => {
@@ -72,3 +80,15 @@ const processSearch = (dataLimit) => {
 document.getElementById('btn-show-all').addEventListener('click', function () {
     processSearch()
 })
+
+
+const loadDetails = async (details) => {
+    const url = `https://openapi.programming-hero.com/api/phone/${details}`
+    const res = await fetch(url)
+    const data = await res.json()
+    displayDetails(data.data)
+}
+
+const displayDetails = data => {
+    console.log(data)
+}
