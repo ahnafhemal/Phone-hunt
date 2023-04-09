@@ -35,14 +35,25 @@ const displayPhones = phones => {
         `
         phoneContainer.appendChild(phoneDiv)
     })
-
+    //stop spinnner loader
+    toggleSpinner(false)
 }
 
 const searchPhone = () => {
+    toggleSpinner(true)
     const inputValue = document.getElementById('search-field')
+    //start loader
     const inputText = inputValue.value
     loadPhone(inputText)
     inputValue.value = ''
 }
 
 
+const toggleSpinner = isLoading => {
+    const loaderSection = document.getElementById('loader')
+    if (isLoading) {
+        loaderSection.classList.remove('d-none')
+    } else {
+        loaderSection.classList.add('d-none')
+    }
+}
