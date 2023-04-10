@@ -36,7 +36,14 @@ const displayPhones = (phones, dataLimit) => {
             <h5 class="card-title">${phone.phone_name}</h5>
             <p class="card-text">This is a longer card with supporting text below as a natural
                 lead-in to additional content. This content is a little bit longer.</p>
-                <button href="#" class="btn btn-primary" onclick="loadDetails('${phone.slug}')">Show Details</button>
+
+
+
+                <button href="#" class="btn btn-primary" onclick="loadDetails('${phone.slug}')"  data-bs-toggle="modal" data-bs-target="#mobileDetails">Show Details</button>
+                
+
+
+
         </div>
     </div>
         `
@@ -91,4 +98,17 @@ const loadDetails = async (details) => {
 
 const displayDetails = data => {
     console.log(data)
+    const modalTitle = document.getElementById('mobileDetailsLabel')
+    modalTitle.innerText = data.name
+    const phoneDetails = document.getElementById('phone-details')
+
+    phoneDetails.innerHTML = `
+    <img src="${data.image}" alt="">
+    <p>${data.releaseDate ? data.releaseDate : 'No Release Date Found'}</P>
+  
+    `
+
+
+
 }
+
